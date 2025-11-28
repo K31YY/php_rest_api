@@ -1,0 +1,6 @@
+Syntax:
+INSERT INTO tablename(col1, col2,..., colN)
+VALUE(val1, val2,..., valN);
+
+Example:
+INSERT INTO tblusers(UserName, UserPassword, UserType) VALUE('admin', 'admin123', 'Administrator');
