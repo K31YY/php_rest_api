@@ -51,6 +51,28 @@
                 return false;
             } 
         }
+        public function show_data($tablename){
+            $data = array();
+            $this->sql = "SELECT * FROM $tablename;";
+            $this->result = $this->db->connect()->query($this->sql);
+            while($rows = $this->result->fetch_assoc()){
+                $data[] = $rows;
+            }
+            return $data;
+        }
+        public function delete_record($tablename, $fid, $vid){
+            if(is_numeric($vid)){
+                $this->sql = "DELETE FROM $tablename WHERE $fid = $vid;";
+            }else{
+                $this->sql = "DELETE FROM $tablename WHERE $fid = '$vid';";
+            }
+            $this->result = $this->db->connect()->query($this->sql);
+            if($this->result){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
         
 ?>
