@@ -3,4 +3,13 @@ INSERT INTO tablename(col1, col2,..., colN)
 VALUE(val1, val2,..., valN);
 
 Example:
-INSERT INTO tblusers(UserName, UserPassword, UserType) VALUE('admin', 'admin123', 'Administrator');
+INSERT INTO tblusers(UserName, UserPassword, UserType) 
+VALUE('admin', 'admin123', 'Administrator');
+
+Syntax:
+UPDATE tablename SET col1=val1, col2=val2,....,colN=valN
+WHERE condition;
+
+Example:
+UPDATE tblusers SET UserName='admin', UserPassword='123456'
+WHERE UserID=1;

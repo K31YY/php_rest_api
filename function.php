@@ -60,12 +60,52 @@
             }
             return $data;
         }
+
+        public function show_data_byId($tablename, $fid, $vid){
+            if(is_numeric($vid)){
+                $this->sql = "SELECT * FROM $tablename WHERE $fid = $vid;";
+            }else{
+                $this->sql = "SELECT * FROM $tablename WHERE $fid = '$vid';";
+            }
+            $this->result = $this->db->connect()->query($this->sql);
+            $rows = $this->result->fetch_assoc();
+            return $rows;
+        }
+
         public function delete_record($tablename, $fid, $vid){
             if(is_numeric($vid)){
                 $this->sql = "DELETE FROM $tablename WHERE $fid = $vid;";
             }else{
                 $this->sql = "DELETE FROM $tablename WHERE $fid = '$vid';";
             }
+            $this->result = $this->db->connect()->query($this->sql);
+            if($this->result){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        public function update_data($tablename, $fields, $values, $fid, $vid){
+            $count = count($fields); // count fields in array
+            // generate UPDATE statement
+            $this->sql = "UPDATE $tablename SET ";
+            for($i=0; $i < $count; $i++){
+                if(is_numeric($values[$i])){
+                    $this->sql .= $fields[$i] . "=" . $values[$i];
+                }else{
+                    $this->sql .= $fields[$i] . "='" . $values[$i] . "'";
+                }
+                if($i < $count - 1){
+                    $this->sql .= ", ";
+                }else{
+                    if(is_numeric($vid)){
+                        $this->sql .= " WHERE $fid = $vid;";
+                    }else{
+                        $this->sql .= " WHERE $fid = '$vid';";
+                    }
+                }
+            }
+            //execute UPDATE statement
             $this->result = $this->db->connect()->query($this->sql);
             if($this->result){
                 return true;
